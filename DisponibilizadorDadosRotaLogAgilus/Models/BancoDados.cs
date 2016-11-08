@@ -12,7 +12,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         private readonly string DataSource = "189.111.254.13,10000", //Alterar para conexão local e segurança integrada.
         InitialCatalog = "dbAgilus",
             //IntegratedSecurity = "",
-        UserID = "suporte_agilus", 
+        UserID = "suporte_agilus",
         Password = "@gilus2016";
         public void AtualizarFaseAfRotalog(string status, int codigoColeta)
         {
@@ -120,7 +120,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                     //Telefones
                     var fones = new List<KeyValuePair<int, string>>();
 
-                    while(dr.Read())
+                    while (dr.Read())
                     {
                         fones.Add(new KeyValuePair<int, string>(Convert.ToInt16(dr["con_codigo"]), dr["tec_telefone"].ToString()));
                     }
@@ -145,17 +145,17 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         {
             SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
             var cmd = new SqlCommand("exec pr_valida_login @login = @usuario, @senha = @pass, @msg_erro = @erro out, @usu_codigo = @cod_usuario out", conexao);
-            
+
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
             cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = senha;
-           
+
             //Parâmetros de saída da proc
             SqlParameter outputErro = cmd.Parameters.Add("@erro", SqlDbType.VarChar, 300);
             outputErro.Direction = ParameterDirection.Output;
             SqlParameter outputCodUsuario = cmd.Parameters.Add("@cod_usuario", SqlDbType.Int);
             outputCodUsuario.Direction = ParameterDirection.Output;
 
-            using(conexao)
+            using (conexao)
             {
                 conexao.Open();
                 cmd.ExecuteScalar();
@@ -187,6 +187,33 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                 conexao.Open();
                 cmd.ExecuteScalar();
             }
+        }
+
+        public List<ObservacaoColeta> ObservacoesColeta()
+        {
+            List<ObservacaoColeta> ObservacoesOrgao = new List<ObservacaoColeta>();
+
+            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+
+            var cmd = new SqlCommand(@"select orgav_codigo as CodigoConvenio, orgav_observacao_coleta as ObservacaoColeta from orgaoav", conexao);
+
+            using (conexao)
+            {
+                conexao.Open();
+                var dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    ObservacoesOrgao.Add(
+                        new ObservacaoColeta()
+                        {
+                            CodigoConvenioAgilus = Convert.ToInt16(dr["CodigoConvenio"]),
+                            ObservacaoConvenio = dr["ObservacaoColeta"].ToString()
+                        }
+                    );
+                };
+            }
+            return ObservacoesOrgao;
         }
     }
 }

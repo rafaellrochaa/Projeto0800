@@ -48,5 +48,14 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
                 Content = new StringContent(@"{""Status Agilus"": ""Confirmação de envio de proposta rotalog gravado no agilus.""}", System.Text.Encoding.UTF8, "application/json")
             };
         }
+
+        [SysWeb.Http.HttpGet]
+        public HttpResponseMessage ObtemObservacoesColeta()
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(new BancoDados().ObservacoesColeta()), System.Text.Encoding.UTF8, "application/json")
+            };
+        }
     }
 }
