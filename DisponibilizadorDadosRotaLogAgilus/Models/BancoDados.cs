@@ -107,7 +107,10 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             Neighborhood = dr["Neighborhood"].ToString(),
                             City = dr["City"].ToString(),
                             State = dr["State"].ToString(),
-                            ZipCode = dr["ZipCode"].ToString()
+                            ZipCode = dr["ZipCode"].ToString(),
+                            ConcordId = Convert.ToInt16(dr["codigo_convenio"]),
+                            ReferenceAddress = dr["con_referencia_endereco"].ToString(),
+                            Scheduling = dr["agendamento"].ToString()
                         });
                     }
 

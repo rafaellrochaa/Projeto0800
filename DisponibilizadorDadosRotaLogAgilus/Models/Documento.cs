@@ -20,6 +20,9 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         public string City { get; set; } 
         public string State { get; set; } 
         public string ZipCode { get; set; }
+        public int ConcordId { get; set; } //Código do órgão no agilus
+        public string ReferenceAddress { get; set; }
+        public string Scheduling { get; set; }
 
         public Documento()
         {
