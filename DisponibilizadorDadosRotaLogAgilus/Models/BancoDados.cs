@@ -108,10 +108,10 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             City = dr["City"].ToString(),
                             State = dr["State"].ToString(),
                             ZipCode = dr["ZipCode"].ToString(),
-                            ConcordId = Convert.ToInt16(dr["codigo_convenio"]),
-                            ReferenceAddress = dr["con_referencia_endereco"].ToString(),
-                            Scheduling = dr["agendamento"].ToString(),
-                            Period = dr["periodo"].ToString()
+                            AgreementId = Convert.ToInt16(dr["codigo_convenio"]),
+                            ReferencePoint = dr["con_referencia_endereco"].ToString(),
+                            ScheduleDate = dr["agendamento"].ToString(),
+                            SchedulePeriod = dr["periodo"].ToString()
                         });
                     }
 
