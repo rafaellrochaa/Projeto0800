@@ -7,7 +7,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 {
     public class ObservacaoColeta
     {
-        public int CodigoConvenioAgilus { get; set; }
-        public string ObservacaoConvenio { get; set; }
+        public int AgreementId { get; set; }
+        public string Note { get; set; }
     }
 }

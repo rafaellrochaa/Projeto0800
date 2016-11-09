@@ -207,8 +207,8 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                     ObservacoesOrgao.Add(
                         new ObservacaoColeta()
                         {
-                            CodigoConvenioAgilus = Convert.ToInt16(dr["CodigoConvenio"]),
-                            ObservacaoConvenio = dr["ObservacaoColeta"].ToString()
+                            AgreementId = Convert.ToInt16(dr["CodigoConvenio"]),
+                            Note = dr["ObservacaoColeta"].ToString()
                         }
                     );
                 };
