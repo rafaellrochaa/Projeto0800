@@ -128,6 +128,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\PublishProfiles\IntegracaoCetelem.pubxml" />
+    <None Include="Properties\PublishProfiles\SiteNortecred.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

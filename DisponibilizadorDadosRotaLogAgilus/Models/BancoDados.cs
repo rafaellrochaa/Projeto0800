@@ -9,11 +9,13 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 {
     public class BancoDados
     {
-        private readonly string DataSource = "189.111.254.13,10000", //Alterar para conexão local e segurança integrada.
-        InitialCatalog = "dbAgilus",
-            //IntegratedSecurity = "",
-        UserID = "suporte_agilus",
-        Password = "@gilus2016";
+        private readonly string 
+            //DataSource = "189.111.254.13,10000", //Alterar para conexão local e segurança integrada.
+            DataSource = "192.168.5.12", //Alterar para conexão local e segurança integrada.
+            InitialCatalog = "dbAgilus",
+            UserID = "suporte_agilus",
+            Password = "@gilus2016";
+
         public void AtualizarFaseAfRotalog(string status, int codigoColeta)
         {
             SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
