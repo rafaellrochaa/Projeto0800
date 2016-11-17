@@ -18,7 +18,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
                 if (Agilus.ValidarToken(chave)) //validação da chave de segurança
                 {
                     Agilus.AtualizarStatusRotalog(status, codigoColeta);
-                    retornoJson = @"{""Status Agilus"": ""Atualizado""}";
+                    retornoJson = @"{""StatusAgilus"": ""Atualizado""}";
 
                     if (status == "Assinou") //Consulta Finalizada
                     {

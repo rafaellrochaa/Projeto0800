@@ -9,11 +9,13 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 {
     public class BancoDados
     {
-        private readonly string DataSource = "192.168.5.12", //Alterar para conexão local e segurança integrada.
-        InitialCatalog = "dbAgilus",
-            //IntegratedSecurity = "",
-        UserID = "suporte_agilus",
-        Password = "@gilus2016";
+        private readonly string 
+            //DataSource = "189.111.254.13,10000", //Alterar para conexão local e segurança integrada.
+            DataSource = "192.168.5.12", //Alterar para conexão local e segurança integrada.
+            InitialCatalog = "dbAgilus",
+            UserID = "suporte_agilus",
+            Password = "@gilus2016";
+
         public void AtualizarFaseAfRotalog(string status, int codigoColeta)
         {
             SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
@@ -100,7 +102,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             CPF = dr["Cpf"].ToString(),
                             Rg = dr["Rg"].ToString(),
                             SignerName = dr["SignerName"].ToString(),
-                            BirthDate = !String.IsNullOrEmpty(dr["BirthDate"].ToString()) ? ((DateTime)dr["BirthDate"]).ToString("dd/MM/yyyy") : String.Empty,
+                            BirthDate = String.Format("{0:dd-MM-yyyy HH:mm:ss}", dr["BirthDate"].ToString()),
                             Gender = dr["Gender"].ToString(),
                             Address = dr["Address"].ToString(),
                             Complement = dr["Complement"].ToString(),
@@ -110,8 +112,8 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             ZipCode = dr["ZipCode"].ToString(),
                             AgreementId = Convert.ToInt16(dr["codigo_convenio"]),
                             ReferencePoint = dr["con_referencia_endereco"].ToString(),
-                            ScheduleDate = ((DateTime)dr["agendamento"]).ToString("dd/MM/yyyy"),
-                            SchedulePeriod = dr["periodo"].ToString()[0]
+                            ScheduleDate = dr["agendamento"].ToString(),
+                            SchedulePeriod = dr["periodo"].ToString()
                         });
                     }
 
