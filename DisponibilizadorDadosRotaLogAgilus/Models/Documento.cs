@@ -23,7 +23,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         public int AgreementId { get; set; } //Código do órgão no agilus
         public string ReferencePoint { get; set; }
         public string ScheduleDate { get; set; }
-        public string SchedulePeriod { get; set; }
+        public char SchedulePeriod { get; set; }
         public Documento()
         {
             Phones = new List<string>();
