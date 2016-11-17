@@ -102,7 +102,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             CPF = dr["Cpf"].ToString(),
                             Rg = dr["Rg"].ToString(),
                             SignerName = dr["SignerName"].ToString(),
-                            BirthDate = String.Format("{0:dd-MM-yyyy HH:mm:ss}", dr["BirthDate"].ToString()),
+                            BirthDate = !String.IsNullOrEmpty(dr["BirthDate"].ToString()) ? ((DateTime)dr["BirthDate"]).ToString("dd/MM/yyyy") : String.Empty,
                             Gender = dr["Gender"].ToString(),
                             Address = dr["Address"].ToString(),
                             Complement = dr["Complement"].ToString(),
@@ -112,8 +112,8 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             ZipCode = dr["ZipCode"].ToString(),
                             AgreementId = Convert.ToInt16(dr["codigo_convenio"]),
                             ReferencePoint = dr["con_referencia_endereco"].ToString(),
-                            ScheduleDate = dr["agendamento"].ToString(),
-                            SchedulePeriod = dr["periodo"].ToString()
+                            ScheduleDate = ((DateTime)dr["agendamento"]).ToString("dd/MM/yyyy"),
+                            SchedulePeriod = dr["periodo"].ToString()[0]
                         });
                     }
 
