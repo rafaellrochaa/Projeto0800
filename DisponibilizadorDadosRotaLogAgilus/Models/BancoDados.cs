@@ -58,7 +58,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                 }
             }
         }
-        public void GravarAnexo(string codColeta, Stream anexo, string nomeArquivo)
+        public void GravarAnexo(string codColeta, MemoryStream anexo, string nomeArquivo)
         {
             SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
 
@@ -72,7 +72,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 
                     cmd.Parameters.Add("@codigo_coleta", SqlDbType.VarChar, 50).Value = codColeta; //Retirar o código direto, linha de teste
                     cmd.Parameters.Add("@nome_arquivo", SqlDbType.VarChar, 200).Value = nomeArquivo;
-                    cmd.Parameters.Add("@anexo", SqlDbType.VarBinary).Value = anexo;
+                    cmd.Parameters.Add("@anexo", SqlDbType.VarBinary, -1).Value = anexo.ToArray();
 
                     cmd.ExecuteNonQuery();
                 }

@@ -1,8 +1,9 @@
-﻿namespace DisponibilizadorDadosRotaLogAgilus.Models
+﻿using System.IO;
+namespace DisponibilizadorDadosRotaLogAgilus.Models
 {
     public class DocumentoRetornoRotaLog
     {
-        public byte[] Documento { get; set; }
+        public MemoryStream Documento { get; set; }
         public string NomeDocumento { get; set; }
     }
 }
