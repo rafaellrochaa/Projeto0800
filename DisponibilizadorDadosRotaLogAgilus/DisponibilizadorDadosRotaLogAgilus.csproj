@@ -164,7 +164,8 @@
     <Compile Include="Models\Agilus.cs" />
     <Compile Include="Models\BancoDados.cs" />
     <Compile Include="Models\Criptografia.cs" />
-    <Compile Include="Models\Documento.cs" />
+    <Compile Include="Models\ImagemProposta.cs" />
+    <Compile Include="Models\Proposta.cs" />
     <Compile Include="Models\DocumentoRetornoRotaLog.cs" />
     <Compile Include="Models\ObservacaoColeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

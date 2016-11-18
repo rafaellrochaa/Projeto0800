@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DisponibilizadorDadosRotaLogAgilus.Models
 {
-    public class Documento
+    public class Proposta
     {
         [JsonIgnore]
         public int CodigoCliente { get; set; }
@@ -24,7 +24,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         public string ReferencePoint { get; set; }
         public string ScheduleDate { get; set; }
         public char SchedulePeriod { get; set; }
-        public Documento()
+        public Proposta()
         {
             Phones = new List<string>();
         }

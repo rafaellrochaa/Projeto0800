@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using SysWeb = System.Web;
 using System.Web.Http;
+using System;
 
 namespace DisponibilizadorDadosRotaLogAgilus.Controllers
 {
@@ -28,15 +29,15 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
         {
             //Mudar a fase das propostas que a formalizar já gravou, mas ainda não enviou à rotalog.
             var jsonContratosAndamento = Request.Content.ReadAsStringAsync().Result;
-            
+
             new BancoDados().AtualizaPropostasPendentes(jsonContratosAndamento);
 
             return new HttpResponseMessage()
             {
-                Content = new StringContent(@"{""Status Agilus"": ""Os Contratos enviados foram retirados da lista de pendentes.""}", System.Text.Encoding.UTF8, "application/json")
+                Content = new StringContent(@"{""StatusAgilus"": ""Os Contratos enviados foram retirados da lista de pendentes.""}", System.Text.Encoding.UTF8, "application/json")
             };
         }
-       
+
         [SysWeb.Http.HttpGet]
         public HttpResponseMessage ConfirmaPropostaEnviadaRotalog(int codColeta, string contrato)
         {
@@ -45,7 +46,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
 
             return new HttpResponseMessage()
             {
-                Content = new StringContent(@"{""Status Agilus"": ""Confirmação de envio de proposta rotalog gravado no agilus.""}", System.Text.Encoding.UTF8, "application/json")
+                Content = new StringContent(@"{""StatusAgilus"": ""Confirmação de envio de proposta rotalog gravado no agilus.""}", System.Text.Encoding.UTF8, "application/json")
             };
         }
 
@@ -57,5 +58,18 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
                 Content = new StringContent(JsonConvert.SerializeObject(new BancoDados().ObservacoesColeta()), System.Text.Encoding.UTF8, "application/json")
             };
         }
+
+        [SysWeb.Http.HttpPost]
+        public HttpResponseMessage GravarImagemProposta(string dadosProposta)
+        {
+            ImagemProposta proposta = JsonConvert.DeserializeObject<ImagemProposta>(dadosProposta);
+            new BancoDados().GravarImagemProposta(proposta.CodigoProposta, Convert.FromBase64String(proposta.Imagem), proposta.NomeArquivo);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(@"{""StatusAgilus"": ""Documento anexado.""}", System.Text.Encoding.UTF8, "application/json")
+            };
+        }
+
     }
 }

@@ -70,9 +70,9 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                 {
                     var cmd = new SqlCommand("execute pr_grava_anexo_rotalog @anexo, @nome_arquivo, @codigo_coleta", conexao);
 
-                    cmd.Parameters.Add("@codigo_coleta", SqlDbType.VarChar, 50).Value = codColeta; //Retirar o código direto, linha de teste
+                    cmd.Parameters.Add("@codigo_coleta", SqlDbType.VarChar, 50).Value = codColeta;
                     cmd.Parameters.Add("@nome_arquivo", SqlDbType.VarChar, 200).Value = nomeArquivo;
-                    cmd.Parameters.Add("@anexo", SqlDbType.VarBinary, -1).Value = anexo.ToArray();
+                    cmd.Parameters.Add("@anexo", SqlDbType.VarBinary, -1).Value = anexo;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -82,10 +82,35 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                 }
             }
         }
-        public List<Documento> DadosConvenioAgilus()
+
+        public void GravarImagemProposta(string codigoProposta, byte[] anexo, string nomeArquivo)
         {
             SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
-            List<Documento> docs = new List<Documento>();
+
+            using (conexao)
+            {
+                conexao.Open();
+
+                try
+                {
+                    var cmd = new SqlCommand("execute pr_grava_imagem_proposta @anexo, @nome_arquivo, @codigo_proposta", conexao);
+
+                    cmd.Parameters.Add("@codigo_proposta", SqlDbType.VarChar, 50).Value = codigoProposta;
+                    cmd.Parameters.Add("@nome_arquivo", SqlDbType.VarChar, 200).Value = nomeArquivo;
+                    cmd.Parameters.Add("@anexo", SqlDbType.VarBinary, -1).Value = anexo;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Ocorreu um problema durante a atualização das fases no banco de dados. Detalhe do erro: " + e.Message);
+                }
+            }
+        }
+        public List<Proposta> DadosConvenioAgilus()
+        {
+            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            List<Proposta> docs = new List<Proposta>();
             using (conexao)
             {
                 conexao.Open();
@@ -95,7 +120,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                     while (dr.Read())
                     {
 
-                        docs.Add(new Documento()
+                        docs.Add(new Proposta()
                         {
                             CodigoCliente = Convert.ToInt16(dr["con_codigo"]),
                             ProposalId = dr["ProcessId"].ToString(),
