@@ -19,11 +19,6 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
                 {
                     Agilus.AtualizarStatusRotalog(status, codigoColeta);
                     retornoJson = @"{""StatusAgilus"": ""Atualizado""}";
-
-                    if (status == "Assinou") //Consulta Finalizada
-                    {
-                        Agilus.DownloadAnexos(codigoColeta);
-                    }
                 }
                 else
                     throw new Exception("Chave inválida");
