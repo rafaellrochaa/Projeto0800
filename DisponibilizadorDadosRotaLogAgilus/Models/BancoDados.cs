@@ -138,7 +138,8 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             AgreementId = Convert.ToInt16(dr["codigo_convenio"]),
                             ReferencePoint = dr["con_referencia_endereco"].ToString(),
                             ScheduleDate = ((DateTime)dr["agendamento"]).ToString("dd/MM/yyyy"),
-                            SchedulePeriod = dr["periodo"].ToString()[0]
+                            SchedulePeriod = dr["periodo"].ToString()[0],
+                            CollectType = dr["CollectType"].ToString()
                         });
                     }
 
@@ -215,7 +216,6 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                 cmd.ExecuteScalar();
             }
         }
-
         public List<ObservacaoColeta> ObservacoesColeta()
         {
             List<ObservacaoColeta> ObservacoesOrgao = new List<ObservacaoColeta>();

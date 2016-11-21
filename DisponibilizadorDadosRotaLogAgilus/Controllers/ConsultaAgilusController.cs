@@ -60,8 +60,9 @@ namespace DisponibilizadorDadosRotaLogAgilus.Controllers
         }
 
         [SysWeb.Http.HttpPost]
-        public HttpResponseMessage GravarImagemProposta(string dadosProposta)
+        public HttpResponseMessage GravarImagemProposta()
         {
+            string dadosProposta = Request.Content.ReadAsStringAsync().Result;
             ImagemProposta proposta = JsonConvert.DeserializeObject<ImagemProposta>(dadosProposta);
             new BancoDados().GravarImagemProposta(proposta.CodigoProposta, Convert.FromBase64String(proposta.Imagem), proposta.NomeArquivo);
 

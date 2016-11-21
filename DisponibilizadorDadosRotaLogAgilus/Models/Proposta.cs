@@ -24,6 +24,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         public string ReferencePoint { get; set; }
         public string ScheduleDate { get; set; }
         public char SchedulePeriod { get; set; }
+        public string CollectType { get; set; }
         public Proposta()
         {
             Phones = new List<string>();
