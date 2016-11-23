@@ -9,17 +9,11 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 {
     public class BancoDados
     {
-        private readonly string 
-            //DataSource = "189.111.254.13,10000", //domínio agilus (teste)
-            DataSource = "192.168.5.12", //Endereço servidor
-            InitialCatalog = "dbAgilus", //Banco de dados 
-            //InitialCatalog = "dbAgilusDEV", Banco de dados de teste
-            UserID = "suporte_agilus",
-            Password = "@gilus2016";
+        private readonly string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Dbagilus"].ConnectionString;
 
         public void AtualizarFaseAfRotalog(string status, int codigoColeta)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
 
             using (conexao)
             {
@@ -40,7 +34,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         }
         public void AtualizarFaseAfAgilus(int fase, string codigoColeta)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
 
             using (conexao)
             {
@@ -61,7 +55,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         }
         public void GravarAnexo(string codColeta, MemoryStream anexo, string nomeArquivo)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
 
             using (conexao)
             {
@@ -86,7 +80,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 
         public void GravarImagemProposta(string codigoProposta, byte[] anexo, string nomeArquivo)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
 
             using (conexao)
             {
@@ -110,7 +104,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         }
         public List<Proposta> DadosConvenioAgilus()
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
             List<Proposta> docs = new List<Proposta>();
             using (conexao)
             {
@@ -173,7 +167,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         }
         public bool ValidaUsuario(string usuario, string senha)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
             var cmd = new SqlCommand("exec pr_valida_login @login = @usuario, @senha = @pass, @msg_erro = @erro out, @usu_codigo = @cod_usuario out", conexao);
 
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = usuario;
@@ -194,7 +188,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         }
         public void AtualizaPropostasPendentes(string contratosAndamento)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
             var cmd = new SqlCommand("exec pr_atualiza_contratos_pendentes @contratos_atualizacao = @contratos", conexao);
             cmd.Parameters.Add("@contratos", SqlDbType.VarChar, -1).Value = contratosAndamento;
 
@@ -206,7 +200,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         }
         public void AtualizaPropostaEnviadaRotalog(int codColeta, string contrato)
         {
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
 
             var cmd = new SqlCommand(@"exec pr_atualiza_contratos_coletados_rotalog @contrato, @cod_coleta", conexao);
             cmd.Parameters.Add("@cod_coleta", SqlDbType.VarChar, 50).Value = codColeta.ToString();
@@ -222,7 +216,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         {
             List<ObservacaoColeta> ObservacoesOrgao = new List<ObservacaoColeta>();
 
-            SqlConnection conexao = new SqlConnection(String.Format("Data Source= {0}; Initial Catalog={1}; User ID={2}; Password={3}", DataSource, InitialCatalog, UserID, Password));
+            SqlConnection conexao = new SqlConnection(ConnectionString);
 
             var cmd = new SqlCommand(@"select orgav_codigo as CodigoConvenio, orgav_observacao_coleta as ObservacaoColeta from orgaoav", conexao);
 
