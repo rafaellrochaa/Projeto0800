@@ -10,9 +10,10 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
     public class BancoDados
     {
         private readonly string 
-            //DataSource = "189.111.254.13,10000", //Alterar para conexão local e segurança integrada.
-            DataSource = "192.168.5.12", //Alterar para conexão local e segurança integrada.
-            InitialCatalog = "dbAgilus",
+            //DataSource = "189.111.254.13,10000", //domínio agilus (teste)
+            DataSource = "192.168.5.12", //Endereço servidor
+            InitialCatalog = "dbAgilus", //Banco de dados 
+            //InitialCatalog = "dbAgilusDEV", Banco de dados de teste
             UserID = "suporte_agilus",
             Password = "@gilus2016";
 
@@ -139,7 +140,8 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             ReferencePoint = dr["con_referencia_endereco"].ToString(),
                             ScheduleDate = ((DateTime)dr["agendamento"]).ToString("dd/MM/yyyy"),
                             SchedulePeriod = dr["periodo"].ToString()[0],
-                            CollectType = dr["CollectType"].ToString()
+                            CollectType = dr["CollectType"].ToString(),
+                            CollectTypeId = Convert.ToInt16(dr["CollectTypeId"])
                         });
                     }
 
