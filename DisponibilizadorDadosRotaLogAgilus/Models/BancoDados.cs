@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.SqlClient;
@@ -117,7 +117,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
 
                         docs.Add(new Proposta()
                         {
-                            CodigoCliente = Convert.ToInt16(dr["con_codigo"]),
+                            CodigoCliente = Convert.ToInt64(dr["con_codigo"]),
                             ProposalId = dr["ProcessId"].ToString(),
                             CPF = dr["Cpf"].ToString(),
                             Rg = dr["Rg"].ToString(),
@@ -130,23 +130,23 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
                             City = dr["City"].ToString(),
                             State = dr["State"].ToString(),
                             ZipCode = dr["ZipCode"].ToString(),
-                            AgreementId = Convert.ToInt16(dr["codigo_convenio"]),
+                            AgreementId = Convert.ToInt64(dr["codigo_convenio"]),
                             ReferencePoint = dr["con_referencia_endereco"].ToString(),
                             ScheduleDate = ((DateTime)dr["agendamento"]).ToString("dd/MM/yyyy"),
                             SchedulePeriod = dr["periodo"].ToString()[0],
                             CollectType = dr["CollectType"].ToString(),
-                            CollectTypeId = Convert.ToInt16(dr["CollectTypeId"])
+                            CollectTypeId = Convert.ToInt32(dr["CollectTypeId"])
                         });
                     }
 
                     dr.NextResult();
 
                     //Telefones
-                    var fones = new List<KeyValuePair<int, string>>();
+                    var fones = new List<KeyValuePair<long, string>>();
 
                     while (dr.Read())
                     {
-                        fones.Add(new KeyValuePair<int, string>(Convert.ToInt16(dr["con_codigo"]), dr["tec_telefone"].ToString()));
+                        fones.Add(new KeyValuePair<long, string>(Convert.ToInt64(dr["con_codigo"]), dr["tec_telefone"].ToString()));
                     }
 
                     foreach (var doc in docs)
