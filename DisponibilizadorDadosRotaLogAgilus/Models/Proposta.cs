@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DisponibilizadorDadosRotaLogAgilus.Models
@@ -6,7 +6,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
     public class Proposta
     {
         [JsonIgnore]
-        public int CodigoCliente { get; set; }
+        public long CodigoCliente { get; set; }
         public string ProposalId { get; set; } //Número proposta
         public string CPF { get; set; }
         public string Rg { get; set; }
@@ -20,7 +20,7 @@ namespace DisponibilizadorDadosRotaLogAgilus.Models
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public int AgreementId { get; set; } //Código do órgão no agilus
+        public long AgreementId { get; set; } //Código do órgão no agilus
         public string ReferencePoint { get; set; }
         public string ScheduleDate { get; set; }
         public char SchedulePeriod { get; set; }
